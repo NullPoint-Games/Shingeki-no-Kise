@@ -72,7 +72,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  iPhoneBundleIdentifier: com.AdvancingProgrammer.Shingeki-no-Kise
+  iPhoneBundleIdentifier: com.AdvancingProgrammer.ShingekinoKise
   productGUID: 608cdcda055d5864a9be528153ccf560
   iPhoneBundleVersion: 1.0
   AndroidBundleVersionCode: 1
