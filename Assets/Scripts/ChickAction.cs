@@ -22,20 +22,20 @@ public class ChickAction : MonoBehaviour
 	{
 		if(Input.GetKey(KeyCode.W))	
 		{
-			Move(Vector3.up);
+			MoveToDirection(Vector3.up);
 		}
 		else if(Input.GetKey(KeyCode.S))
 		{
-			Move(Vector3.down);
+			MoveToDirection(Vector3.down);
 		}
 
 		if(Input.GetKey(KeyCode.A))
 		{
-			Move(Vector3.left);
+			MoveToDirection(Vector3.left);
 		}
 		else if(Input.GetKey(KeyCode.D))	
 		{
-			Move(Vector3.right);
+			MoveToDirection(Vector3.right);
 		}
 	}
 
@@ -47,13 +47,13 @@ public class ChickAction : MonoBehaviour
 			return;
 		}
 		
-		Vector3 dir = (Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position)).normalized;
-		dir.z = 0;
-		Move(dir);
+		Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		pos.z = transform.position.z;
+		MoveToPoint(pos);
 	}
 
-	//移动
-	private void Move(Vector3 direction)
+	//移动方向
+	private void MoveToDirection(Vector3 direction)
 	{
 		if(direction.x < 0)
 		{
@@ -65,5 +65,20 @@ public class ChickAction : MonoBehaviour
 		}
 		
 		transform.Translate(direction * moveSpeed * Time.deltaTime);
+	}
+
+	//移动到指定点
+	private void MoveToPoint(Vector3 pos)
+	{
+		if(transform.position.x - pos.x < 0)
+		{
+			transform.localScale = new Vector3(1,1,1);
+		}
+		else if(transform.position.x - pos.x > 0)
+		{
+			transform.localScale = new Vector3(-1,1,1);
+		}
+
+		transform.position = Vector3.Lerp(transform.position,pos,moveSpeed * Time.deltaTime);
 	}
 }
