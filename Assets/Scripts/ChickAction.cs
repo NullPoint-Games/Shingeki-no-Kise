@@ -13,24 +13,57 @@ public class ChickAction : MonoBehaviour
 
 	void Update()
 	{
+		HandleKeyboard();
+		HandleMouse();
+	}
+	
+	//处理键盘事件
+	private void HandleKeyboard()
+	{
 		if(Input.GetKey(KeyCode.W))	
 		{
-			transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);
+			Move(Vector3.up);
 		}
 		else if(Input.GetKey(KeyCode.S))
 		{
-			transform.Translate(Vector3.down * moveSpeed * Time.deltaTime);
+			Move(Vector3.down);
 		}
 
-		if(Input.GetKey(KeyCode.D))	
+		if(Input.GetKey(KeyCode.A))
 		{
-			transform.localScale = new Vector3(1,1,1);
-			transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
+			Move(Vector3.left);
 		}
-		else if(Input.GetKey(KeyCode.A))
+		else if(Input.GetKey(KeyCode.D))	
+		{
+			Move(Vector3.right);
+		}
+	}
+
+	//处理鼠标事件
+	private void HandleMouse()
+	{
+		if(!Input.GetMouseButton(0))
+		{
+			return;
+		}
+		
+		Vector3 dir = (Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position)).normalized;
+		dir.z = 0;
+		Move(dir);
+	}
+
+	//移动
+	private void Move(Vector3 direction)
+	{
+		if(direction.x < 0)
 		{
 			transform.localScale = new Vector3(-1,1,1);
-			transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
 		}
+		else if(direction.x > 0)
+		{
+			transform.localScale = new Vector3(1,1,1);
+		}
+		
+		transform.Translate(direction * moveSpeed * Time.deltaTime);
 	}
 }
