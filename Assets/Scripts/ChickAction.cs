@@ -16,6 +16,12 @@ public class ChickAction : MonoBehaviour
 		HandleKeyboard();
 		HandleMouse();
 	}
+
+	//碰撞检测
+	void OnCollisionEnter2D(Collision2D c)
+	{
+		print("hit object:" + c.transform.name);
+	}
 	
 	//处理键盘事件
 	private void HandleKeyboard()
