@@ -16,16 +16,18 @@ public class ChickAction : MonoBehaviour
 	void Update()
 	{
 		#if UNITY_EDITOR || UNITY_STANDALONE
+		HandleKeyboardEvent();
+		#endif
+	}
+
+	//处理键盘事件
+	private void HandleKeyboardEvent()
+	{
 		if(Input.GetKeyDown(KeyCode.Space))
 		{
 			Jump();
 		}
-		#endif
-	}
-	
-	void FixedUpdate()
-	{
-		#if UNITY_EDITOR || UNITY_STANDALONE
+		
 		if(Input.GetKey(KeyCode.A))
 		{
 			Run(-Vector2.right);
@@ -34,7 +36,6 @@ public class ChickAction : MonoBehaviour
 		{
 			Run(Vector2.right);
 		}
-		#endif
 	}
 
 	private bool CheckOnGround()
