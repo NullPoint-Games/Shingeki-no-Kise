@@ -10,13 +10,13 @@ public class ChickAction : MonoBehaviour
 	public float runForce = 500;
 	//跳跃力度
 	public float jumpForce = 1200;
-	//跳跃标记
-	private bool isJump = false;
+	//脚部
+	public Transform foot;
 
 	void Update()
 	{
 		#if UNITY_EDITOR || UNITY_STANDALONE
-		if(Input.GetKeyDown(KeyCode.Space) && !isJump)
+		if(Input.GetKeyDown(KeyCode.Space))
 		{
 			Jump();
 		}
@@ -25,8 +25,6 @@ public class ChickAction : MonoBehaviour
 	
 	void FixedUpdate()
 	{
-		CheckOnGround();
-
 		#if UNITY_EDITOR || UNITY_STANDALONE
 		if(Input.GetKey(KeyCode.A))
 		{
@@ -39,10 +37,9 @@ public class ChickAction : MonoBehaviour
 		#endif
 	}
 
-	//检查是否着地
-	private void CheckOnGround()
+	private bool CheckOnGround()
 	{
-		isJump = !Physics2D.Linecast(transform.position,transform.position,1 << LayerMask.NameToLayer("Terrain"));  
+		return Physics2D.Linecast(transform.position,foot.position,1 << LayerMask.NameToLayer("Terrain"));
 	}
 
 	//奔跑
@@ -61,7 +58,11 @@ public class ChickAction : MonoBehaviour
 	//跳跃
 	private void Jump()
 	{
+		if(!CheckOnGround())
+		{
+			return;
+		}
+
 		rigidbody2D.AddForce(Vector2.up * jumpForce);
-		isJump = true;
 	}
 }
