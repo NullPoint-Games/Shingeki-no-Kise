@@ -4,87 +4,64 @@ using System.Collections;
 //小鸡脚本
 public class ChickAction : MonoBehaviour
 {
-	//移动速度
-	public float moveSpeed = 10;
-
-	void Start()
-	{
-	}
+	//最大奔跑速度
+	public float maxRunSpeed = 8;
+	//奔跑力度
+	public float runForce = 500;
+	//跳跃力度
+	public float jumpForce = 1200;
+	//跳跃标记
+	private bool isJump = false;
 
 	void Update()
 	{
-		HandleKeyboard();
-		HandleMouse();
-	}
-
-	//碰撞检测
-	void OnCollisionEnter2D(Collision2D c)
-	{
-		print("hit object:" + c.transform.name);
+		#if UNITY_EDITOR || UNITY_STANDALONE
+		if(Input.GetKeyDown(KeyCode.Space) && !isJump)
+		{
+			Jump();
+		}
+		#endif
 	}
 	
-	//处理键盘事件
-	private void HandleKeyboard()
+	void FixedUpdate()
 	{
-		if(Input.GetKey(KeyCode.W))	
-		{
-			MoveToDirection(Vector3.up);
-		}
-		else if(Input.GetKey(KeyCode.S))
-		{
-			MoveToDirection(Vector3.down);
-		}
+		CheckOnGround();
 
+		#if UNITY_EDITOR || UNITY_STANDALONE
 		if(Input.GetKey(KeyCode.A))
 		{
-			MoveToDirection(Vector3.left);
+			Run(-Vector2.right);
 		}
 		else if(Input.GetKey(KeyCode.D))	
 		{
-			MoveToDirection(Vector3.right);
+			Run(Vector2.right);
+		}
+		#endif
+	}
+
+	//检查是否着地
+	private void CheckOnGround()
+	{
+		isJump = !Physics2D.Linecast(transform.position,transform.position,1 << LayerMask.NameToLayer("Terrain"));  
+	}
+
+	//奔跑
+	private void Run(Vector2 dir)
+	{
+		transform.localScale = new Vector3(dir.x,1,1);
+
+		rigidbody2D.AddForce(dir * runForce);
+
+		if(Mathf.Abs(rigidbody2D.velocity.x) > maxRunSpeed)
+		{
+			rigidbody2D.velocity = new Vector2(dir.x * maxRunSpeed,rigidbody2D.velocity.y);
 		}
 	}
 
-	//处理鼠标事件
-	private void HandleMouse()
+	//跳跃
+	private void Jump()
 	{
-		if(!Input.GetMouseButton(0))
-		{
-			return;
-		}
-		
-		Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		pos.z = transform.position.z;
-		MoveToPoint(pos);
-	}
-
-	//移动方向
-	private void MoveToDirection(Vector3 direction)
-	{
-		if(direction.x < 0)
-		{
-			transform.localScale = new Vector3(-1,1,1);
-		}
-		else if(direction.x > 0)
-		{
-			transform.localScale = new Vector3(1,1,1);
-		}
-		
-		transform.Translate(direction * moveSpeed * Time.deltaTime);
-	}
-
-	//移动到指定点
-	private void MoveToPoint(Vector3 pos)
-	{
-		if(transform.position.x - pos.x < 0)
-		{
-			transform.localScale = new Vector3(1,1,1);
-		}
-		else if(transform.position.x - pos.x > 0)
-		{
-			transform.localScale = new Vector3(-1,1,1);
-		}
-
-		transform.position = Vector3.Lerp(transform.position,pos,moveSpeed * Time.deltaTime);
+		rigidbody2D.AddForce(Vector2.up * jumpForce);
+		isJump = true;
 	}
 }
