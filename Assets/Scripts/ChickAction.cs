@@ -7,7 +7,7 @@ public class ChickAction : MonoBehaviour
 	//最大奔跑速度
 	public float maxRunSpeed = 8;
 	//奔跑力度
-	public float runForce = 500;
+	public float runForce = 350;
 	//跳跃力度
 	public float jumpForce = 1200;
 	//脚部
@@ -38,6 +38,26 @@ public class ChickAction : MonoBehaviour
 		}
 	}
 
+	//处理摇杆事件
+	private void On_JoystickMove(MovingJoystick joystick)
+	{
+		if(joystick.joystickAxis.x < 0)
+		{
+			Run(-Vector2.right);
+		}
+		else if(joystick.joystickAxis.x > 0)	
+		{
+			Run(Vector2.right);
+		}
+	}
+
+	//处理按钮事件
+	private void On_ButtonDown(string btn)
+	{
+		Jump();
+	}
+
+	//检查是否碰到地面
 	private bool CheckOnGround()
 	{
 		return Physics2D.Linecast(transform.position,foot.position,1 << LayerMask.NameToLayer("Terrain"));
