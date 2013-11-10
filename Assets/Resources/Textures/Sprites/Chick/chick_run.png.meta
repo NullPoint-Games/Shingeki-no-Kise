@@ -48,7 +48,7 @@ TextureImporter:
         y: 152
         width: 306
         height: 296
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .605024159, y: .0161454994}
   spritePackingTag: 
   userData: 
