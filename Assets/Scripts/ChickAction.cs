@@ -12,13 +12,15 @@ public enum ChickJumpState
 public class ChickAction : MonoBehaviour
 {
 	//最大奔跑速度
-	public Vector2 maxVelocity = new Vector2(8,12);
+	public float maxVelocity = 8;
 	//奔跑力度
 	public float runForce = 350;
 	//跳跃力度
 	public float jumpForce = 1200;
-	//脚部
-	public Transform foot;
+	//脸部触发器
+	public Transform faceTrigger;
+	//脚部触发器
+	public Transform footTrigger;
 
 	//跳跃状态
 	private ChickJumpState _jumpState;
@@ -77,14 +79,20 @@ public class ChickAction : MonoBehaviour
 	{
 		transform.localScale = new Vector3(dir.x,1,1);
 		dir.y = 0;
+
+		if(CheckFaceTrigger())
+		{
+			return;
+		}
+
 		rigidbody2D.AddForce(dir * runForce);
-		rigidbody2D.velocity = new Vector2(Mathf.Clamp(rigidbody2D.velocity.x,-maxVelocity.x,maxVelocity.x),rigidbody2D.velocity.y);
+		rigidbody2D.velocity = new Vector2(Mathf.Clamp(rigidbody2D.velocity.x,-maxVelocity,maxVelocity),rigidbody2D.velocity.y);
 	}
 
 	//跳跃
 	private void Jump()
 	{
-		if(CheckOnGround())
+		if(CheckFootTrigger())
 		{
 			JumpState = ChickJumpState.Jump;
 		}
@@ -99,12 +107,17 @@ public class ChickAction : MonoBehaviour
 		}
 
 		rigidbody2D.AddForce(Vector2.up * jumpForce);
-		rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x,Mathf.Clamp(rigidbody2D.velocity.y,-maxVelocity.y,maxVelocity.y));
+	}
+
+	//检查是否脸部碰到地形
+	private bool CheckFaceTrigger()
+	{
+		return Physics2D.Linecast(faceTrigger.position - Vector3.up,faceTrigger.position + Vector3.up,1 << LayerMask.NameToLayer("Terrain"));
 	}
 
 	//检查是否碰到地面
-	private bool CheckOnGround()
+	private bool CheckFootTrigger()
 	{
-		return Physics2D.Linecast(transform.position,foot.position,1 << LayerMask.NameToLayer("Terrain"));
+		return Physics2D.Linecast(transform.position,footTrigger.position,1 << LayerMask.NameToLayer("Terrain"));
 	}
 }
