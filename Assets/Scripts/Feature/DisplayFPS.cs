@@ -7,7 +7,9 @@ public class DisplayFPS : MonoBehaviour
 	public int targetFPS = 0;
 
 	//刷新频率
-	public float interval = 0.5f;
+	public float time = 0.5f;
+	//计时tick
+	private float timeTick;
 
 	//位置
 	public Vector2 position = new Vector2(10,10);
@@ -26,24 +28,26 @@ public class DisplayFPS : MonoBehaviour
 		{
 			Application.targetFrameRate = targetFPS;
 		}
-
-		InvokeRepeating("UpdateFPS",0,interval);
+		
+		timeTick = Time.time;
 	}
 	
-	void OnGUI() 
+	void OnGUI()
 	{
 		GUI.color = color;
 		GUI.Label(new Rect(position.x,position.y,200,200),"FPS:" + fps);
 	}
 	
-	void Update() 
+	void Update()
 	{
 		++frames;
-	}
-
-	private void UpdateFPS()
-	{
-		fps = (int)(frames / interval);
-		frames = 0;
+		
+		float timeDiff = Time.time - timeTick;
+		if(timeDiff >= time)
+		{
+			timeTick = Time.time;
+			fps = (int)(frames / timeDiff);
+			frames = 0;
+		}
 	}
 }
