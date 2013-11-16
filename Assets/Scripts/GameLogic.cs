@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//游戏控制器
-public class GameController : MonoBehaviour
+//游戏逻辑
+public class GameLogic : MonoBehaviour
 {
 	void Start()
 	{

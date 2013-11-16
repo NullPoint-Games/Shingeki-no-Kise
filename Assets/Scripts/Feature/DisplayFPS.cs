@@ -4,12 +4,12 @@ using System.Collections;
 public class DisplayFPS : MonoBehaviour
 {
 	//目标刷新率
-	public int targetFPS = 0;
+	public int targetFPS = 60;
 
 	//刷新频率
 	public float time = 0.5f;
-	//计时tick
-	private float timeTick;
+	//上次时间
+	private float lastTime;
 
 	//位置
 	public Vector2 position = new Vector2(10,10);
@@ -29,7 +29,7 @@ public class DisplayFPS : MonoBehaviour
 			Application.targetFrameRate = targetFPS;
 		}
 		
-		timeTick = Time.time;
+		lastTime = Time.time;
 	}
 	
 	void OnGUI()
@@ -42,10 +42,10 @@ public class DisplayFPS : MonoBehaviour
 	{
 		++frames;
 		
-		float timeDiff = Time.time - timeTick;
+		float timeDiff = Time.time - lastTime;
 		if(timeDiff >= time)
 		{
-			timeTick = Time.time;
+			lastTime = Time.time;
 			fps = (int)(frames / timeDiff);
 			frames = 0;
 		}
