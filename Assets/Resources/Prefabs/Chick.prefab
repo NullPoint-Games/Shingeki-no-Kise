@@ -11,7 +11,7 @@ GameObject:
   m_Layer: 9
   m_Name: FootTrigger
   m_TagString: Untagged
-  m_Icon: {fileID: -1500306622, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -26,7 +26,7 @@ GameObject:
   m_Layer: 9
   m_Name: FaceTrigger_End
   m_TagString: Untagged
-  m_Icon: {fileID: -1500306622, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -41,6 +41,7 @@ GameObject:
   - 212: {fileID: 21200000}
   - 50: {fileID: 5000000}
   - 58: {fileID: 5800000}
+  - 114: {fileID: 11400002}
   - 114: {fileID: 11400000}
   m_Layer: 9
   m_Name: Chick
@@ -60,7 +61,7 @@ GameObject:
   m_Layer: 9
   m_Name: FaceTrigger_Start
   m_TagString: Untagged
-  m_Icon: {fileID: -1500306622, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -148,11 +149,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dafd3cddddc44e94b9c26c3916e6fb78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  action: {fileID: 11400002}
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f66de552b20e14891ac890fb2b694c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   footTrigger: {fileID: 400000}
   faceTrigger_Start: {fileID: 400006}
   faceTrigger_End: {fileID: 400002}
+  runForce: 200
+  runVelocity: 12
   jumpVelocity: 20
-  runVelocity: 15
   jumpSection: 2
 --- !u!212 &21200000
 SpriteRenderer:

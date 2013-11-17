@@ -2,8 +2,10 @@
 using System.Collections;
 
 //玩家脚本
-public class PlayerAction : CharacterAction
+public class PlayerController : MonoBehaviour
 {
+	public CharacterAction action;
+
 	void Update()
 	{
 		#if UNITY_EDITOR || UNITY_STANDALONE
@@ -17,16 +19,16 @@ public class PlayerAction : CharacterAction
 	{
 		if(Input.GetKeyDown(KeyCode.Space))
 		{
-			Jump();
+			action.Jump();
 		}
 
 		if(Input.GetKey(KeyCode.A))
 		{
-			Run(RunDirection.Left);
+			action.Run(-Vector2.right);
 		}
 		else if(Input.GetKey(KeyCode.D))	
 		{
-			Run(RunDirection.Right);
+			action.Run(Vector2.right);
 		}
 	}
 	#endif
@@ -36,17 +38,17 @@ public class PlayerAction : CharacterAction
 	{
 		if(joystick.joystickAxis.x < 0)
 		{
-			Run(RunDirection.Left);
+			action.Run(-Vector2.right);
 		}
 		else if(joystick.joystickAxis.x > 0)	
 		{
-			Run(RunDirection.Right);
+			action.Run(Vector2.right);
 		}
 	}
 
 	//处理按钮事件
 	private void On_ButtonDown(string btn)
 	{
-		Jump();
+		action.Jump();
 	}
 }

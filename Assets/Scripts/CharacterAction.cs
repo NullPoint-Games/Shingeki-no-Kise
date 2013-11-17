@@ -1,13 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//运动方向
-public enum RunDirection
-{
-	Left,
-	Right,
-}
-
 //角色脚本
 public class CharacterAction : MonoBehaviour
 {
@@ -16,28 +9,32 @@ public class CharacterAction : MonoBehaviour
 	//脸部触发器
 	public Transform faceTrigger_Start;
 	public Transform faceTrigger_End;
+	
+	//奔跑力度
+	public float runForce = 200;
+	//最大奔跑速度
+	public float runVelocity = 12;
 
 	//跳跃初速度
 	public float jumpVelocity = 20;
-	//最大奔跑速度
-	public float runVelocity = 15;
 
 	//跳跃阶段数
 	public int jumpSection = 2;
 	//当前跳跃阶段
 	private int curJumpSection = 1;
-
+	
 	//奔跑
-	public void Run(RunDirection rd)
+	public void Run(Vector2 vector)
 	{
-		FaceTo(rd);
+		transform.localScale = new Vector3(vector.x,1,1);
 		if(IsFaceToGround())
 		{
 			rigidbody2D.velocity = new Vector2(0,rigidbody2D.velocity.y);
 		}
 		else
 		{
-			rigidbody2D.velocity = new Vector2((rd == RunDirection.Left ? -1 : 1) * runVelocity,rigidbody2D.velocity.y);
+			rigidbody2D.AddForce(vector * runForce);
+			rigidbody2D.velocity = new Vector2(Mathf.Clamp(rigidbody2D.velocity.x,-runVelocity,runVelocity),rigidbody2D.velocity.y);
 		}
 	}
 	
@@ -55,12 +52,6 @@ public class CharacterAction : MonoBehaviour
 
 		rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x,jumpVelocity);
 		curJumpSection++;
-	}
-
-	//设置面朝向
-	public void FaceTo(RunDirection rd)
-	{
-		transform.localScale = new Vector3(rd == RunDirection.Left ? -1 : 1,1,1);
 	}
 
 	//判断是否着地
