@@ -17,6 +17,11 @@ public class PlayerController : MonoBehaviour
 	//处理键盘事件
 	private void HandleKeyboardEvent()
 	{
+		if(Input.GetKey(KeyCode.Return))
+		{
+			action.Shoot();
+		}
+
 		if(Input.GetKeyDown(KeyCode.Space))
 		{
 			action.Jump();

@@ -11,7 +11,7 @@ GameObject:
   m_Layer: 9
   m_Name: FootTrigger
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 1182211791, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -26,7 +26,7 @@ GameObject:
   m_Layer: 9
   m_Name: FaceTrigger_End
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 664873902, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -61,7 +61,22 @@ GameObject:
   m_Layer: 9
   m_Name: FaceTrigger_Start
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 664873902, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &100008
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400008}
+  m_Layer: 0
+  m_Name: ShootPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: -215833656, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -72,7 +87,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.00843557715, y: -.0580053329, z: 0}
+  m_LocalPosition: {x: .244269609, y: -1.52609134, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400004}
@@ -83,7 +98,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.38022649, y: .0557261705, z: 0}
+  m_LocalPosition: {x: 1.5917877, y: -1.06387067, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400004}
@@ -94,12 +109,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.47000003, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400002}
   - {fileID: 400000}
   - {fileID: 400006}
+  - {fileID: 400008}
   m_Father: {fileID: 0}
 --- !u!4 &400006
 Transform:
@@ -108,7 +124,18 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.38022625, y: 2.61082888, z: 0}
+  m_LocalPosition: {x: 1.5917877, y: .954524755, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400004}
+--- !u!4 &400008
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.32546341, y: .0594476685, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400004}
@@ -137,7 +164,7 @@ CircleCollider2D:
   m_Material: {fileID: 6200000, guid: 2e2f54a7b01e64644abe1f33add1a625, type: 2}
   m_IsTrigger: 0
   m_Radius: 1.35000002
-  m_Center: {x: -.0299999993, y: 1.30999994}
+  m_Center: {x: .219999999, y: -.129999995}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -164,10 +191,13 @@ MonoBehaviour:
   footTrigger: {fileID: 400000}
   faceTrigger_Start: {fileID: 400006}
   faceTrigger_End: {fileID: 400002}
+  ShootPosition: {fileID: 400008}
+  bullet: {fileID: 100000, guid: 88d5e04c132961541a49d74ae8b6e61b, type: 2}
   runForce: 200
   runVelocity: 12
   jumpVelocity: 20
   jumpSection: 2
+  attackCD: .300000012
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -189,7 +219,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300000, guid: 0705f7bac0a461148b4d0d9f1198d0ce, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 68f92863f4cb3604e951ffdbbebbdfd7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

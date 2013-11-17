@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0705f7bac0a461148b4d0d9f1198d0ce
+guid: 68f92863f4cb3604e951ffdbbebbdfd7
 TextureImporter:
   serializedVersion: 2
   mipmaps:
@@ -21,34 +21,25 @@ TextureImporter:
   generateCubemap: 0
   seamlessCubemap: 0
   textureFormat: -1
-  maxTextureSize: 256
+  maxTextureSize: 1024
   textureSettings:
-    filterMode: 1
+    filterMode: -1
     aniso: 1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 1
-  spritePivot: {x: .5, y: .5}
+  alignment: 0
+  spritePivot: {x: 0, y: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites:
-    - name: Chick_Run_0
-      rect:
-        serializedVersion: 2
-        x: 214
-        y: 152
-        width: 306
-        height: 296
-      alignment: 9
-      pivot: {x: .605024159, y: .0161454994}
+    sprites: []
   spritePackingTag: 
   userData: 
