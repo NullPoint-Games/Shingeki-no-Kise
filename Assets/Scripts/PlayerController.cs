@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//玩家脚本
+//玩家控制器
 public class PlayerController : MonoBehaviour
 {
+	//角色脚本
 	public CharacterAction action;
 
 	void Update()

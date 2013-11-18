@@ -4,6 +4,9 @@ using System.Collections;
 //角色脚本
 public class CharacterAction : MonoBehaviour
 {
+	//角色属性
+	public CharacterAttribute attribute;
+
 	//脚部触发器
 	public Transform footTrigger;
 	//脸部触发器
@@ -14,29 +17,18 @@ public class CharacterAction : MonoBehaviour
 	public Transform ShootPosition;
 	//子弹对象
 	public GameObject bullet;
-	
-	//奔跑力度
-	public float runForce = 200;
-	//最大奔跑速度
-	public float runVelocity = 12;
 
-	//跳跃初速度
-	public float jumpVelocity = 20;
-
-	//跳跃阶段数
-	public int jumpSection = 2;
 	//当前跳跃阶段
-	private int curJumpSection = 1;
+	private int jumpSection = 1;
 
-	//攻击CD
-	public float attackCD = 1;
-	private float attackCDTick;
+	//当前攻击CD
+	private float ACD;
 
 	void Update()
 	{
-		if(attackCDTick > 0)
+		if(ACD > 0)
 		{
-			attackCDTick -= Time.deltaTime;
+			ACD -= Time.deltaTime;
 		}
 	}
 	
@@ -50,8 +42,8 @@ public class CharacterAction : MonoBehaviour
 		}
 		else
 		{
-			rigidbody2D.AddForce(vector * runForce);
-			rigidbody2D.velocity = new Vector2(Mathf.Clamp(rigidbody2D.velocity.x,-runVelocity,runVelocity),rigidbody2D.velocity.y);
+			rigidbody2D.AddForce(vector * attribute.runForce);
+			rigidbody2D.velocity = new Vector2(Mathf.Clamp(rigidbody2D.velocity.x,-attribute.runVelocity,attribute.runVelocity),rigidbody2D.velocity.y);
 		}
 	}
 	
@@ -60,26 +52,26 @@ public class CharacterAction : MonoBehaviour
 	{
 		if(IsOnGround())
 		{
-			curJumpSection = 1;
+			jumpSection = 1;
 		}
-		else if(curJumpSection > jumpSection)
+		else if(jumpSection > attribute.jumpSection)
 		{
 			return;
 		}
 
-		rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x,jumpVelocity);
-		curJumpSection++;
+		rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x,attribute.jumpVelocity);
+		jumpSection++;
 	}
 
 	//发射子弹
 	public void Shoot()
 	{
-		if(attackCDTick <= 0)
+		if(ACD <= 0)
 		{
-			attackCDTick = attackCD;
+			ACD = attribute.ACD;
 			GameObject b = Instantiate(bullet) as GameObject;
 			b.transform.position = ShootPosition.position;
-			b.GetComponent<BulletAction>().Shoot(new Vector2(transform.localScale.x,0));
+			b.GetComponent<BulletAction>().Shoot(this,new Vector2(transform.localScale.x,0));
 		}
 	}
 
