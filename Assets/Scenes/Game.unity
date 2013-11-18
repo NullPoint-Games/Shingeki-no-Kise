@@ -135,7 +135,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 194901281}
   m_Layer: 0
-  m_Name: PlayerController
+  m_Name: Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,7 +156,7 @@ Transform:
   - {fileID: 212803198}
   - {fileID: 205413768}
   - {fileID: 286637454}
-  m_Father: {fileID: 1367092069}
+  m_Father: {fileID: 0}
 --- !u!1 &205413767
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,7 +441,7 @@ GameObject:
   - 114: {fileID: 370342554}
   - 114: {fileID: 370342558}
   m_Layer: 0
-  m_Name: MainCamera
+  m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -901,7 +901,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1913728558}
-  - {fileID: 194901281}
   m_Father: {fileID: 0}
 --- !u!1 &1413157243
 GameObject:
