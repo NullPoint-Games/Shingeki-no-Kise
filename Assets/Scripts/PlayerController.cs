@@ -53,9 +53,9 @@ public class PlayerController : MonoBehaviour
 	}
 
 	//处理按钮事件
-	private void On_ButtonDown(string btn)
+	private void On_ButtonDown(GameObject btn)
 	{
-		switch(btn)
+		switch(btn.name)
 		{
 		case "JumpButton":
 			action.Jump();
