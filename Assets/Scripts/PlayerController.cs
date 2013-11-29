@@ -1,11 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//玩家控制器
+//玩家控制脚本
 public class PlayerController : MonoBehaviour
 {
-	//角色脚本
-	public CharacterAction action;
+	//角色对象
+	private Character character;
+	public Character Character{get{return character;}}
+
+	void Start()
+	{
+		character = GetComponent<Character>();
+
+		CharacterAttribute attribute = new CharacterAttribute();
+		attribute.RSPD = 16;
+		attribute.RACL = 8;
+		attribute.JSPD = 20;
+		attribute.JS = 2;
+		attribute.ACD = 0.3f;
+
+		character.InitCharacter(attribute);
+	}
 
 	void Update()
 	{
@@ -20,21 +35,25 @@ public class PlayerController : MonoBehaviour
 	{
 		if(Input.GetKey(KeyCode.Return))
 		{
-			action.Shoot();
+			character.Shoot();
 		}
 
 		if(Input.GetKeyDown(KeyCode.Space))
 		{
-			action.Jump();
+			character.Jump();
 		}
-
-		if(Input.GetKey(KeyCode.A))
+		
+		if(Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
 		{
-			action.Run(-Vector2.right);
+			character.Idle();
+		}
+		else if(Input.GetKey(KeyCode.A))
+		{
+			character.Run(-Vector2.right);
 		}
 		else if(Input.GetKey(KeyCode.D))	
 		{
-			action.Run(Vector2.right);
+			character.Run(Vector2.right);
 		}
 	}
 	#endif
@@ -44,12 +63,16 @@ public class PlayerController : MonoBehaviour
 	{
 		if(joystick.joystickAxis.x < 0)
 		{
-			action.Run(-Vector2.right);
+			character.Run(-Vector2.right);
 		}
 		else if(joystick.joystickAxis.x > 0)	
 		{
-			action.Run(Vector2.right);
+			character.Run(Vector2.right);
 		}
+	}
+	private void On_JoystickMoveEnd(MovingJoystick joystick)
+	{
+		character.Idle();
 	}
 
 	//处理按钮事件
@@ -58,10 +81,10 @@ public class PlayerController : MonoBehaviour
 		switch(btn.name)
 		{
 		case "JumpButton":
-			action.Jump();
+			character.Jump();
 			break;
 		case "ShootButton":
-			action.Shoot();
+			character.Shoot();
 			break;
 		}
 	}
