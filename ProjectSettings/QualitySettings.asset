@@ -4,7 +4,7 @@
 QualitySettings:
   m_ObjectHideFlags: 0
   serializedVersion: 5
-  m_CurrentQuality: 3
+  m_CurrentQuality: 1
   m_QualitySettings:
   - serializedVersion: 2
     name: Fastest
@@ -121,7 +121,7 @@ QualitySettings:
     particleRaycastBudget: 4096
     excludedTargetPlatforms: []
   m_PerPlatformDefaultQuality:
-    Android: 2
+    Android: 1
     BlackBerry: 2
     FlashPlayer: 3
     GLES Emulation: 3

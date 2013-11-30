@@ -4,6 +4,9 @@ using System.Collections;
 //子弹脚本
 public class Bullet : MonoBehaviour
 {
+	//子弹归属者
+	private Character character;
+
 	//飞行速度
 	public float velocity;
 	//飞行方向
@@ -13,15 +16,13 @@ public class Bullet : MonoBehaviour
 	public float lifeTime;
 	private float lifeTick;
 
-	//子弹归属者
-	private Character character;
-
 	//发射
 	public void InitBullet(Character character,Vector3 position,Vector2 direction)
 	{
 		this.character = character;
 		transform.position = position;
 		this.direction = direction * velocity;
+		rigidbody2D.velocity = this.direction;
 		lifeTick = lifeTime;
 		name = character.name + "_Bullet";
 		gameObject.SetActive(true);
@@ -37,11 +38,7 @@ public class Bullet : MonoBehaviour
 				gameObject.SetActive(false);
 			}
 		}
-	}
-
-	void FixedUpdate()
-	{
-		transform.Translate(direction);
+		rigidbody2D.velocity = direction;
 	}
 
 	void OnTriggerEnter2D(Collider2D c)
@@ -50,6 +47,8 @@ public class Bullet : MonoBehaviour
 		{
 			return;
 		}
+
+		gameObject.SetActive(false);
 
 		if(c.gameObject.layer == LayerMask.NameToLayer("Terrain"))
 		{
